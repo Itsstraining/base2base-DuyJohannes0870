@@ -41,9 +41,21 @@
   ConvertBase.hex2dec = function (num) {
     return ConvertBase(num).from(16).to(10);
   };
+  // thập lục phân sang bát phân
+  ConvertBase.hex2oct = function (num) {
+    return ConvertBase(num).from(16).to(8);
+  };
   //Từ bát phân sang thập phân
   ConvertBase.oct2dec = function (num) {
     return ConvertBase(num).from(8).to(10);
+  };
+  //Từ bát phân sang nhị phân
+  ConvertBase.oct2bin = function (num){
+    return ConvertBase(num).from(8).to(2);
+  };
+  //Từ bát phân sang thập lục phân
+  ConvertBase.oct2hex = function (num){
+    return ConvertBase(num).from(8).to(16);
   };
 
   //Thập phân đến bát phân
@@ -63,6 +75,9 @@ function main(input) {
   if(x==2 && y==10){   // nhị phân sang thập phân
     console.log(ConvertBase.bin2dec(n));
   }
+  else if(x==2 && y==16){ //nhị phân sang thập lục phân
+    console.log(ConvertBase.bin2hex(n));
+  }
   else if(x==10 && y==16){ //thập phân sang thập lục phân
     console.log(ConvertBase.dec2hex(n));
   }
@@ -75,8 +90,17 @@ function main(input) {
   else if(x==16 && y==10){ //thập lục phân sang thập phân
     console.log(ConvertBase.hex2dec(n));
   }
+  else if(x==16 && y==8){ //thập lục phân sang bát phân
+    console.log(ConvertBase.hex2oct(n));
+  }
   else if(x==8 && y==10){ //bát phân sang thập phân
     console.log(ConvertBase.oct2dec(n));
+  }
+  else if(x==8 && y==2){ //bát phân sang nhị phân
+    console.log(ConvertBase.oct2bin(n));
+  }
+  else if(x==8 && y==16){ //bát phân sang thập lục phân
+    console.log(ConvertBase.oct2hex(n));
   }
   else if(x==10 && y==8){ //thập phân sang bát phân
     console.log(ConvertBase.dec2oct(n));
