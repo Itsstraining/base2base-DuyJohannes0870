@@ -1,117 +1,113 @@
-(function () {
+function decToBin(num) {
+  let bin = 0;
+  let rem, i = 1;
+  while (num != 0) {
+    rem = num % 2;
+    num = Math.floor(num / 2);
+    bin = bin + rem * i;
+    i = i * 10;
+  }
+  console.log(bin);
+}
 
-  let ConvertBase = function (num) {
-    return {
-      from: function (baseFrom) {
-        return {
-          to: function (baseTo) {
-            return parseInt(num, baseFrom).toString(baseTo);
-          }
-        };
-      }
-    };
-  };
+function binToDec(num) {
+  let arr = [];
+  arr = num.toString().split("");
+  arr = arr.reverse();
+  let kq = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == 1) {
+      kq += 1 * Math.pow(2, i);
+    }
+  }
+  // return kq;
+  console.log(kq);
+}
 
-  // nhị phân sang thập phân
-  ConvertBase.bin2dec = function (num) {
-    return ConvertBase(num).from(2).to(10);
-  };
+function decToHex(n) {
+  let so = "0123456789ABCDEF";
+  let kq = "";
+  while (n > 0) {
+    let temp = Math.floor(n % 16);
+    kq = so.charAt(temp) + kq;
+    n = Math.floor(n / 16);
+  }
+  console.log(kq);
+}
 
-  // nhị phân sang thập lục phân
-  ConvertBase.bin2hex = function (num) {
-    return ConvertBase(num).from(2).to(16);
-  };
+function octToDec(n) {
+  let kq = 0;
+  let i = 0;
+  while (n != 0) {
+    kq = kq + Math.floor(n % 10) * Math.pow(8, i);
+    i++;
+    n /= 10;
+  }
+  console.log(kq);
+}
 
-  // thập phân sang nhị phân
-  ConvertBase.dec2bin = function (num) {
-    return ConvertBase(num).from(10).to(2);
-  };
+function binToHex(n) {
+  n = n.toString();
+  for (let i = 0; i < n.length; i++) {
+    if ((n.length) % 4 != 0) {
+      n = "0" + n;
+    }
+  }
+  let temp = [];
+  for (let i = 0; i < n.length; i += 4) {
+    temp.push(n.substring(i, i + 4))
+  }
+  let kq = "";
+  for (let i = 0; i < temp.length; i++) { 
+    kq = kq + hex(temp[i]);
+  }
+  console.log(kq);
+}
 
-  // thập phân sang thập lục phân
-  ConvertBase.dec2hex = function (num) {
-    return ConvertBase(num).from(10).to(16);
-  };
+function hex(n){
+  switch(n){
+    case '0000':return '0';
+    case '0001':return '1';
+    case '0010':return '2';
+    case '0011':return '3';
+    case '0100':return '4';
+    case '0101':return '5';
+    case '0110':return '6';
+    case '0111':return '7';
+    case '1000':return '8';
+    case '1001':return '9';
+    case '1010':return 'A';
+    case '1011':return 'B';
+    case '1100':return 'C';
+    case '1101':return 'D';
+    case '1110':return 'E';
+    case '1111':return 'F';
+    default:
+      break;
+  }
+}
 
-  // thập lục phân sang nhị phân
-  ConvertBase.hex2bin = function (num) {
-    return ConvertBase(num).from(16).to(2);
-  };
-
-  // thập lục phân sang thập phân
-  ConvertBase.hex2dec = function (num) {
-    return ConvertBase(num).from(16).to(10);
-  };
-  // thập lục phân sang bát phân
-  ConvertBase.hex2oct = function (num) {
-    return ConvertBase(num).from(16).to(8);
-  };
-  //Từ bát phân sang thập phân
-  ConvertBase.oct2dec = function (num) {
-    return ConvertBase(num).from(8).to(10);
-  };
-  //Từ bát phân sang nhị phân
-  ConvertBase.oct2bin = function (num){
-    return ConvertBase(num).from(8).to(2);
-  };
-  //Từ bát phân sang thập lục phân
-  ConvertBase.oct2hex = function (num){
-    return ConvertBase(num).from(8).to(16);
-  };
-
-  //Thập phân đến bát phân
-  ConvertBase.dec2oct = function (num) {
-    return ConvertBase(num).from(10).to(8);
-  };
-
-  this.ConvertBase = ConvertBase;
-
-})(this);
 
 function main(input) {
-  let res = input.split(" ");
-  let n = res[0];
-  let x = res[1];
-  let y = res[2];
-  if(x==2 && y==10){   // nhị phân sang thập phân
-    console.log(ConvertBase.bin2dec(n));
+  let inp = input.split(' ');
+  let num = inp[0];
+  let a = inp[1];
+  let b = inp[2];
+  if (a == 10 && b == 2) {
+    decToBin(num);
   }
-  else if(x==2 && y==16){ //nhị phân sang thập lục phân
-    console.log(ConvertBase.bin2hex(n));
+  if (a == 2 && b == 10) {
+    binToDec(num);
   }
-  else if(x==10 && y==16){ //thập phân sang thập lục phân
-    console.log(ConvertBase.dec2hex(n));
+  if (a == 10 && b == 16) {
+    decToHex(num);
   }
-  else if(x==16 && y==2){ //thập lục phân sang nhị phân
-    console.log(ConvertBase.hex2bin(n));
+  if (a == 8 && b == 10) {
+    octToDec(num);
   }
-  else if(x==10 && y==2){ //thập phân sang nhị phân
-    console.log(ConvertBase.dec2bin(n));
+  if (a == 2 && b == 16) {
+    binToHex(num);
   }
-  else if(x==16 && y==10){ //thập lục phân sang thập phân
-    console.log(ConvertBase.hex2dec(n));
-  }
-  else if(x==16 && y==8){ //thập lục phân sang bát phân
-    console.log(ConvertBase.hex2oct(n));
-  }
-  else if(x==8 && y==10){ //bát phân sang thập phân
-    console.log(ConvertBase.oct2dec(n));
-  }
-  else if(x==8 && y==2){ //bát phân sang nhị phân
-    console.log(ConvertBase.oct2bin(n));
-  }
-  else if(x==8 && y==16){ //bát phân sang thập lục phân
-    console.log(ConvertBase.oct2hex(n));
-  }
-  else if(x==10 && y==8){ //thập phân sang bát phân
-    console.log(ConvertBase.dec2oct(n));
-  }
- // '1111' '15'
- // '82''52'
- // 'e2''11100010'
- // '153''10011001'
- //'1FE4ED63D55FA51E''2298222722903156000'
- //'777''511'
- //'551''1047'
-
 }
-  module.exports = main;
+module.exports = main;
+
